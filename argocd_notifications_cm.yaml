@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-notifications-cm
+  namespace: argocd
+data:
+  service.slack: |
+    token: $slack-token
+  template.app-health-degraded: |
+    message: |
+      Application {{.app.metadata.name}} is degraded.
+      Sync status: {{.app.status.sync.status}}
+      Health status: {{.app.status.health.status}}
+      Repo: {{.app.spec.source.repoURL}}
+      Path: {{.app.spec.source.path}}
+  trigger.on-health-degraded: |
+    - when: app.status.health.status == 'Degraded'
+      send:
+        - app-health-degraded
