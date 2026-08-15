@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: hello-world
-        image: image: this-image-does-not-exist-12345:latest
+        image: this-image-does-not-exist-12345:latest
         ports:
         - containerPort: 80
